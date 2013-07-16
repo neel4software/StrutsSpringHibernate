@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+   "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="javaguys.tutorials.beans.Student" table="student_data">
+		<id name="studentId" column="student_id">
+			<generator class="native">
+			</generator>
+		</id>
+		<property name="firstName" />
+		<property name="middleName" />
+		<property name="lastName" />
+		<property name="phoneNumber" />
+		<property name="emailId" />
+		<property name="gender" />
+		<property name="city" />
+	</class>
+</hibernate-mapping>

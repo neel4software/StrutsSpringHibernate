@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+    
+    <bean id="dataSourceBean" class="org.apache.commons.dbcp.BasicDataSource" >
+	    <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	    <property name="url" value="jdbc:mysql://localhost:3306/javaguys_db"/>
+	    <property name="username" value="root"/>
+	    <property name="password" value="root"/>
+	</bean>
+	
+	<bean id="sessionFactoryBean" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+	    <property name="dataSource" ref="dataSourceBean"/>
+	    <property name="mappingResources">
+	        <list>
+	            <value>javaguys/tutorials/beans/Student.hbm.xml</value>
+	        </list>
+	    </property>
+	    <property name="hibernateProperties">
+	        <value>hibernate.dialect=org.hibernate.dialect.MySQLDialect
+	        hibernate.hbm2ddl.auto=update
+	        hibernate.show_sql=true
+	        </value>
+	     </property>
+	</bean>
+ 
+    <bean id="hibernateTemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+	    <property name="sessionFactory">
+	        <ref bean="sessionFactoryBean"/>
+	    </property>
+	</bean> 
+		 
+	<bean id="studentDao" class="javaguys.tutorials.dao.StudentDao" >
+		<property name="hibernateTemplate" ref="hibernateTemplate" />
+	</bean>
+	
+	<bean id="createBean" class="javaguys.tutorials.actions.CreateBean" >
+		<property name="studentDao" ref="studentDao" />
+	</bean>   
+</beans>
+
+
